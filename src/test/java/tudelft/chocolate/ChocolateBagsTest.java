@@ -1,8 +1,10 @@
 package tudelft.chocolate;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.CheckReturnValue;
 
 public class ChocolateBagsTest {
     @ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
@@ -25,6 +27,19 @@ public class ChocolateBagsTest {
         "0,3,17,-1", "1,3,17,-1", "2,3,17,2", "3,3,17,2",
         "0,3,12,-1", "1,3,12,-1", "2,3,12,2", "3,3,12,2"})
     public void bigAndSmallBars(int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBags().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }
+    @ParameterizedTest
+    @CsvSource({"3,2,13,3"})
+    public void NeedForBigAndSmallBars(int small, int big, int total, int expectedResult){
+        int result = new ChocolateBags().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+
+    }
+    @ParameterizedTest
+    @CsvSource({"6,4,3,3"})
+    public void onlySmallBars2(int small, int big, int total, int expectedResult){
         int result = new ChocolateBags().calculate(small, big, total);
         Assertions.assertEquals(expectedResult, result);
     }
